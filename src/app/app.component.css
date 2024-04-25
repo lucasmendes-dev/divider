@@ -1,0 +1,15 @@
+.card {
+  width: 50%;
+}
+
+.btn {
+  width: 50%;
+}
+
+.excluir {
+  color: red;
+}
+
+.total {
+  font-weight: bold;
+}
