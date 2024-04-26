@@ -73,9 +73,9 @@
             <td> {{ i + 1 }} </td>
             <td> {{ item.name }} </td>
             <td> R$ {{ item.price }} </td>
-            <td *ngFor="let cleiton of item.guys">
-              {{ cleiton.name }},
-            </td>
+            <div *ngFor="let itemPerson of item.guys">
+              <td>{{ itemPerson }}</td>
+            </div>
     
             <button class="btn-close excluir"  aria-label="Delete" (click)="removeItem(i)"></button>
           </tr>
@@ -110,7 +110,7 @@
             <div class="form-group">
               <label class="form-label" for="people">Pessoas:</label>
               <select class="form-select" id="people" name="people" multiple [(ngModel)]="itemPeople">
-                <option *ngFor="let person of people" [ngValue]="person">{{ person.name }}</option>
+                <option *ngFor="let person of people" [ngValue]="person.name">{{ person.name }}</option>
               </select>
             </div>
 

@@ -13,9 +13,9 @@ export class AppComponent {
 
   newPersonName: string = '';
   people: Person[] = [
-    { name: 'Alice', cost: 250 },
-    { name: 'Bob', cost: 300 },
-    { name: 'Charlie', cost: 150 }
+    { name: 'Alice', cost: 0 },
+    { name: 'Bob', cost: 0 },
+    { name: 'Charlie', cost: 0 }
   ];
   total:number = 0;
 
@@ -41,17 +41,32 @@ export class AppComponent {
   }
 
 
-  addItem() { console.log(this.itemPeople);
+  addItem() {
     if (this.newItem !== '') {
       const newItem: Item = {
         name: this.newItem,
         price: this.price,
         guys: this.itemPeople
       }
+
+      this.itemPeople.map(itemPeople => { console.log(this.itemPeople.length);
+        this.people.map(person => {
+          if (itemPeople === person.name) {
+            if (this.itemPeople.length > 1) {
+              person.cost += this.price / this.itemPeople.length
+            } else {
+              person.cost += this.price
+            }
+          }
+        })
+      });
+
+      this.total += this.price;
+      
       this.itens.push(newItem);
       this.newItem = '';
       this.price = 0;
-    this.itemPeople = []
+      this.itemPeople = []
     }
   }
 
