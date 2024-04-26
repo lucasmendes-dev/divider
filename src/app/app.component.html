@@ -59,7 +59,7 @@
 
     <h1 class="mx-auto mb-3">Itens</h1>
 
-    <div *ngIf="Itens">
+    <div *ngIf="itens">
       <table class="table table-striped">
         <thead>
           <th scope="col">#</th>
@@ -68,12 +68,16 @@
           <th scope="col">Pessoas</th>
           <th scope="col">-</th>
         </thead>
-        <tbody *ngFor="let item of Itens; let i = index">
+        <tbody *ngFor="let item of itens; let i = index">
           <tr>
             <td> {{ i + 1 }} </td>
             <td> {{ item.name }} </td>
-            <td> R$ {{ item.cost }} </td>
-            <button class="btn-close excluir" (click)="removePerson(i)" aria-label="Delete"></button>
+            <td> R$ {{ item.price }} </td>
+            <td *ngFor="let cleiton of item.guys">
+              {{ cleiton.name }},
+            </td>
+    
+            <button class="btn-close excluir"  aria-label="Delete" (click)="removeItem(i)"></button>
           </tr>
         </tbody>
       </table>
@@ -95,19 +99,23 @@
           <div class="modal-body">
             <div class="form-group">
               <label class="form-label" for="name">Item:</label>
-              <input class="form-control" width="50%" type="text" name="name" id="name" [(ngModel)]="newPersonName">
+              <input class="form-control" width="50%" type="text" name="name" id="name" [(ngModel)]="newItem">
             </div>
 
             <div class="form-group">
               <label class="form-label" for="price">Preço:</label>
-              <input class="form-control" width="50%" type="number" name="price" id="price" [(ngModel)]="newItem">
+              <input class="form-control" width="50%" type="number" name="price" id="price" [(ngModel)]="price">
             </div>
 
-              <select name="people" id="people">
-                <option *ngFor="let person of people" value="{{ person.name }}">{{ person.name }}</option>
+            <div class="form-group">
+              <label class="form-label" for="people">Pessoas:</label>
+              <select class="form-select" id="people" name="people" multiple [(ngModel)]="itemPeople">
+                <option *ngFor="let person of people" [ngValue]="person">{{ person.name }}</option>
               </select>
+            </div>
+
           </div>
-          <button type="button" class="btn btn-primary mb-3 mx-auto" data-bs-dismiss="modal" (click)="addPerson()">Adicionar</button>
+          <button type="button" class="btn btn-primary mb-3 mx-auto" data-bs-dismiss="modal" (click)="addItem()">Adicionar</button>
         </div>
       </div>
     </div>
