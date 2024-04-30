@@ -1,124 +1,121 @@
-<div class="container">
-  <div class="card mx-auto mt-5">
+<div class="container py-5">
+  <div class="card shadow-lg p-3 mb-5 rounded">
+      <div class="card-body">
+          <h1 class="card-title text-center mb-4">Gestão de Custos Extravagante</h1>
 
-    <h1 class="mx-auto mb-3">Pessoas</h1>
+          <!-- Pessoas -->
+          <div>
+              <h2 class="mb-3">Pessoas</h2>
+              <div *ngIf="people && people.length > 0">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Nome</th>
+                              <th>Custo (R$)</th>
+                              <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let person of people; let i = index">
+                              <td>{{ i + 1 }}</td>
+                              <td>{{ person.name }}</td>
+                              <td>R$ {{ person.cost | number: '1.2-2' }}</td>
+                              <td><button class="btn btn-danger" (click)="removePerson(i)">Excluir</button></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <p class="text-center fw-bold">Total: R$ {{ total | number: '1.2-2' }}</p>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPersonModal">Adicionar Pessoa</button>
+          </div>
 
-    <div *ngIf="people">
-      <table class="table table-striped">
-        <thead>
-          <th scope="col">#</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Custo (R$)</th>
-          <th scope="col">-</th>
-        </thead>
-        <tbody *ngFor="let person of people; let i = index">
-          <tr>
-            <td> {{ i + 1 }} </td>
-            <td> {{ person.name }} </td>
-            <td> R$ {{ person.cost }} </td>
-            <button class="btn-close excluir" (click)="removePerson(i)" aria-label="Delete"></button>
-          </tr>
-        </tbody>
-      </table>
-      <div>
-        <p class="text-center total">Total: R${{ total }}</p>
+          <!-- Modal para Adicionar Pessoa -->
+          <div class="modal fade" id="addPersonModal" tabindex="-1" aria-labelledby="addPersonModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="addPersonModalLabel">Adicione uma Pessoa</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="mb-3">
+                              <label for="name" class="form-label">Nome:</label>
+                              <input type="text" class="form-control" id="name" [(ngModel)]="newPersonName">
+                          </div>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addPerson()">Adicionar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-    
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary mb-3 mx-auto" data-bs-toggle="modal" data-bs-target="#addPersonModal">
-      Adicionar
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="addPersonModal" tabindex="-1" aria-labelledby="addPersonModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-3" id="addPersonModalLabel">Adicione uma pessoa</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label class="form-label" for="name">Nome:</label>
-              <input class="form-control" width="50%" type="text" name="name" id="name" [(ngModel)]="newPersonName">
-            </div>
-          </div>
-          <button type="button" class="btn btn-primary mb-3 mx-auto" data-bs-dismiss="modal" (click)="addPerson()">Adicionar</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Abaixo o item -->
-
-<div class="container">
-  <div class="card mx-auto mt-5">
-
-    <h1 class="mx-auto mb-3">Itens</h1>
-
-    <div *ngIf="itens">
-      <table class="table table-striped">
-        <thead>
-          <th scope="col">#</th>
-          <th scope="col">Item</th>
-          <th scope="col">Preço (R$)</th>
-          <th scope="col">Pessoas</th>
-          <th scope="col">-</th>
-        </thead>
-        <tbody *ngFor="let item of itens; let i = index">
-          <tr>
-            <td> {{ i + 1 }} </td>
-            <td> {{ item.name }} </td>
-            <td> R$ {{ item.price }} </td>
-            <div *ngFor="let itemPerson of item.guys">
-              <td>{{ itemPerson }}</td>
-            </div>
-    
-            <button class="btn-close excluir"  aria-label="Delete" (click)="removeItem(i)"></button>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary mb-3 mx-auto" data-bs-toggle="modal" data-bs-target="#addItemModal">
-      Adicionar
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-3" id="addItemModalLabel">Adicione um item</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label class="form-label" for="name">Item:</label>
-              <input class="form-control" width="50%" type="text" name="name" id="name" [(ngModel)]="newItem">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="price">Preço:</label>
-              <input class="form-control" width="50%" type="number" name="price" id="price" [(ngModel)]="price">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="people">Pessoas:</label>
-              <select class="form-select" id="people" name="people" multiple [(ngModel)]="itemPeople">
-                <option *ngFor="let person of people" [ngValue]="person.name">{{ person.name }}</option>
+      <!-- Itens -->
+      <div class="mt-5">
+          <h2 class="mb-3">Itens</h2>
+          <div class="mb-3">
+              <label for="tax" class="form-label">Qual a taxa do local?</label>
+              <select class="form-select" id="tax" name="tax" [(ngModel)]="tax" (change)="onTaxChange()">
+                  <option value="0">Não cobra taxa</option>
+                  <option value="0.05">5%</option>
+                  <option value="0.1">10%</option>
+                  <option value="0.15">15%</option>
               </select>
-            </div>
-
           </div>
-          <button type="button" class="btn btn-primary mb-3 mx-auto" data-bs-dismiss="modal" (click)="addItem()">Adicionar</button>
-        </div>
+          <div *ngIf="itens && itens.length > 0">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Item</th>
+                          <th>Preço (R$)</th>
+                          <th>Pessoas</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of itens; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>R$ {{ item.price | number: '1.2-2' }}</td>
+                          <td>{{ item.guys.join(', ') }}</td>
+                          <td><button class="btn btn-danger btn-sm" (click)="removeItem(i)">Excluir</button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">Adicionar Item</button>
       </div>
-    </div>
-
   </div>
 </div>
+
+<!-- Modal para Adicionar Item -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="addItemModalLabel">Adicione um Item</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="item" class="form-label">Item:</label>
+                  <input type="text" class="form-control" id="item" [(ngModel)]="newItem">
+              </div>
+              <div class="mb-3">
+                  <label for="price" class="form-label">Preço:</label>
+                  <input type="number" class="form-control" id="price" [(ngModel)]="price">
+              </div>
+              <div class="mb-3">
+                  <label for="people" class="form-label">Pessoas:</label>
+                  <select class="form-select" id="people" multiple [(ngModel)]="itemPeople">
+                      <option *ngFor="let person of people" [ngValue]="person.name">{{ person.name }}</option>
+                  </select>
+              </div>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addItem()">Adicionar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

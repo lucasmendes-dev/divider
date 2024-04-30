@@ -12,12 +12,9 @@ export class AppComponent {
   title = 'divider';
 
   newPersonName: string = '';
-  people: Person[] = [
-    { name: 'Alice', cost: 0 },
-    { name: 'Bob', cost: 0 },
-    { name: 'Charlie', cost: 0 }
-  ];
+  people: Person[] = [];
   total:number = 0;
+  tax: number = 0;
 
   newItem: string = '';
   price: number = 0;
@@ -49,13 +46,13 @@ export class AppComponent {
         guys: this.itemPeople
       }
 
-      this.itemPeople.map(itemPeople => { console.log(this.itemPeople.length);
+      this.itemPeople.map(itemPeople => {
         this.people.map(person => {
           if (itemPeople === person.name) {
             if (this.itemPeople.length > 1) {
               person.cost += this.price / this.itemPeople.length
             } else {
-              person.cost += this.price
+              person.cost += this.price;
             }
           }
         })
@@ -72,6 +69,13 @@ export class AppComponent {
 
   removeItem(index: number) {
     this.itens.splice(index, 1);
+  }
+
+  onTaxChange() {
+    this.people.map(person => {
+      person.cost += person.cost * this.tax;
+      this.total += this.total * this.tax;
+    });
   }
 
 }
