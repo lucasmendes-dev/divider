@@ -1,7 +1,7 @@
-/*.card {
+.card {
   width: 50%;
 }
-
+/*
 .btn {
   width: 50%;
 }
@@ -44,13 +44,13 @@ body {
 }
 
 .btn-danger {
-  background-color: #6c757d;
+  background-color: #ff0101;
   border-color: #6c757d;
 }
 
 .modal-content {
-  background-color: #f8f9fa;;
-  color: #343a40;
+  background-color: #343a40;;
+  color: #ffffff;
 }
 
 .form-control, .form-select {
@@ -63,5 +63,6 @@ body {
 }
 
 .btn-close {
-  filter: invert(1);
+  background-color: red;
+  color: white;
 }
