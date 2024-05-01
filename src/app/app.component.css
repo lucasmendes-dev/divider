@@ -66,3 +66,16 @@ body {
   background-color: red;
   color: white;
 }
+
+.title {
+  color: #00ddff;
+}
+
+.tax-div {
+  color: #00ddff;
+  width: 30%;
+}
+
+.tax-drop {
+  background-color: #cacaca;
+}
